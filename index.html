@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Cossé — Portfolio BTS SIO SISR</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f9fafb;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --muted: #6b7280;
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --border: #e5e7eb;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 8%; display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--accent); text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--muted); margin-left: 1.5rem; font-size: 0.85rem; font-weight: 600; transition: 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; margin-top: 80px; }
+        .hero-badge { display: inline-block; padding: 6px 12px; background: var(--accent-light); color: var(--accent); border-radius: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-bottom: 1.5rem; width: fit-content; }
+        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -2px; font-weight: 800; }
+        .hero p { max-width: 650px; font-size: 1.25rem; color: var(--muted); margin-bottom: 2.5rem; font-weight: 300; }
+
+        .container { padding: 2rem 10% 4rem 10%; max-width: 1400px; margin: 0 auto; }
+        .portfolio-layout { display: grid; grid-template-columns: 320px 1fr; gap: 4rem; }
+
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .profile-card { background: var(--bg-white); border: 1px solid var(--border); padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+        .avatar { width: 70px; height: 70px; background: var(--accent); color: white; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'Syne', sans-serif; }
+        .contact-info { font-size: 0.9rem; margin-bottom: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+        .btn-download { display: block; width: 100%; padding: 1rem; background: var(--accent); color: white; text-align: center; text-decoration: none; border-radius: var(--radius-md); font-weight: 700; margin-top: 2rem; transition: 0.3s; }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3); }
+
+        .pole-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 3rem 0 1.5rem 0; border-left: 5px solid var(--accent); padding-left: 1rem; }
+        
+        .project-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 1.5rem; overflow: hidden; transition: 0.3s; }
+        .project-header { padding: 1.8rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .project-header:hover { background: #fafafa; }
+        .project-header h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; }
+        
+        .project-body { display: none; padding: 0 2rem 2rem 2rem; background: #fff; }
+        .project-card.active .project-body { display: block; }
+
+        .docs-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 0.5rem; }
+        .doc-item { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--accent-light); border-radius: var(--radius-md); text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.9rem; transition: 0.2s; border: 1px solid transparent; }
+        .doc-item:hover { border-color: var(--accent); background: white; }
+
+        .placeholder-section { background: #f3f4f6; border: 2px dashed var(--border); border-radius: var(--radius-lg); padding: 4rem; text-align: center; color: var(--muted); margin-top: 2rem; }
+
+        @media (max-width: 1000px) {
+            .portfolio-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; margin-bottom: 3rem; }
+            .hero { padding: 0 5%; }
+            .container { padding: 2rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#accueil" class="nav-brand">AC.SISR</a>
+    <div class="nav-links">
+        <a href="#procédures">Procédures</a>
+        <a href="#veille">Veille</a>
+        <a href="#synthese">Synthèse</a>
+    </div>
+</nav>
+
+<div class="hero" id="accueil">
+    <div class="hero-badge">// CANDIDAT BTS SIO SISR 2026</div>
+    <h1>Arthur Cossé<br><span style="color:var(--muted)">Portfolio Épreuve E5</span></h1>
+    <p>Documentations techniques et réalisations professionnelles dans le domaine de la cybersécurité et de l'administration réseaux.</p>
+</div>
+
+<div class="container">
+    <div class="portfolio-layout">
+        
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="avatar">AC</div>
+                <h2 style="font-family:'Syne'; margin-bottom:0.5rem;">Arthur Cossé</h2>
+                <p style="font-size:0.85rem; color:var(--muted); margin-bottom:2rem; font-weight:600;">Spécialité SISR</p>
+                
+                <div class="contact-info">📍 Villers-Bocage, Normandie</div>
+                <div class="contact-info">📞 07 69 58 82 28</div>
+                <div class="contact-info">✉️ arthur.cosse@sts-sio-caen.info</div>
+
+                <a href="Cv_Arthur-cossé.pdf" target="_blank" class="btn-download">Télécharger mon CV (PDF)</a>
+
+                <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+                    <p style="font-weight: 800; font-size: 0.75rem; color: var(--accent); text-transform: uppercase;">Compétences Clés</p>
+                    <ul style="list-style:none; font-size: 0.85rem; margin-top: 1rem; color: var(--muted);">
+                        <li style="margin-bottom: 0.5rem;">• Windows Server 2022 / AD</li>
+                        <li style="margin-bottom: 0.5rem;">• Supervision Syslog / Grafana</li>
+                        <li style="margin-bottom: 0.5rem;">• Réseaux Cisco (VLAN, Routage)</li>
+                        <li style="margin-bottom: 0.5rem;">• Cybersécurité & Audit</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <main id="procédures">
+
+            <h2 class="pole-title">1ère année</h2>
+            <div class="project-card">
+                <div class="project-header" onclick="toggleProject(this)">
+                    <h3>Procédures et Documentations</h3>
+                    <span>▼</span>
+                </div>
+                <div class="project-body">
+                    <div class="docs-list">
+                        <a href="https://docs.google.com/document/d/1C6TLFh06BkZXGWCcV7UHRyzwpnX39SrCae4QaJw14hM/edit?usp=sharing" target="_blank" class="doc-item">Installation service web apache2 <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1ZjTFRlKE94ufMvU9S3MrsNpZVFRXy672xbbQ1GV07AU/edit?usp=sharing" target="_blank" class="doc-item">Création debian <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1tZ7tuEOEIKUkOvT3grGyfgeH5sXQXFMJfK-G2gxzAnA/edit?usp=sharing" target="_blank" class="doc-item">DNS dynamique sur debian 12.5 <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1Hhgx7dMiGjn7gcF2lSoHGEognNkdTm6GhKqOMebEwE8/edit?usp=sharing" target="_blank" class="doc-item">Implémentation d'un serveur DNS Secondaire <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1PRd_NSwg7efPDCfEALWsjd6N9Q6BdytRZzEhTA4w-eM/edit?usp=sharing" target="_blank" class="doc-item">Mettre une IP fixe <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1rCqnsPmrZLW1oys4X2EDnDoclkkb6j1xIcgX_PcbU54/edit?usp=sharing" target="_blank" class="doc-item">Procédure DNS <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1BaC1853aCEj8raSiEIvWWmtdpBE17F0gvpr7QavjMtI/edit?usp=sharing" target="_blank" class="doc-item">Procédure pour machine virtuel proxmox <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1bGyu1Kc7Q1-GVGKqQSWImnDRFG5oXud7ZJyOw-JVPJA/edit?usp=sharing" target="_blank" class="doc-item">Protocole DHCP et VM virtual box <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/12V8gndG-G4J0F3iowy4FEQEN398Cah2f20Mk6Iqj81E/edit?usp=sharing" target="_blank" class="doc-item">Windows vm <span>→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="pole-title">2ème année cyber (bloc 3)</h2>
+            <div class="project-card">
+                <div class="project-header" onclick="toggleProject(this)">
+                    <h3>Procédures et Documentations</h3>
+                    <span>▼</span>
+                </div>
+                <div class="project-body">
+                    <div class="docs-list">
+                        <a href="https://docs.google.com/document/d/1vPm1lSebshMUyv7u3a7x2bLa1lSDZkzfeoWrGC3twDk/edit?usp=drive_link" target="_blank" class="doc-item">Mise en oeuvre de listes d'accès <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1RF_V87xsQvhx0dfcGK_QGRrRO0ySNE68DBqbue6FjVs/edit?usp=drive_link" target="_blank" class="doc-item">TP Attaque DHCP <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1WjHV7gPIWoxZG9glXUVlgDZXC5Ee0c3fqAYx_h3fi9Q/edit?usp=drive_link" target="_blank" class="doc-item">Test de l’attaque MITM-ARP Poisoning <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1m0GvBqympspcwjfWe9B_TC1IhkN6REzeZpRw5rrHUN4/edit?usp=sharing" target="_blank" class="doc-item">Configuration de la NAT <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1Xjw1Vwmm04TkvIvBNUPTuYbIupRiMpohBrEiiSpYhyw/edit?usp=drive_link" target="_blank" class="doc-item">Partie 1 – Attaque MITM d’un service SSH <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1PIcNtgU9CQJ7k0Z1djTkmFhkYSrAi0oSVFCIGpLB9Rw/edit?usp=drive_link" target="_blank" class="doc-item">Partie 2 - Mise en place de contre-mesures <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/10BzDsmO6nBZqmadwSZpv4Zew_aBs7q-dFmRMdTac-qw/edit?usp=drive_link" target="_blank" class="doc-item">Partie 3 – Bonnes pratiques et sécurité (OpenSSH) <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1_8N4w9qUKx-c1QhbxL6NDyd9AETW_o0Z5wOyvn1X7vk/edit?usp=sharing" target="_blank" class="doc-item">TP VPN <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1myv_lJnQq9_EgwI_9M6WxhbQOlDX3_sIz6yS7kIfUr0/edit?usp=sharing" target="_blank" class="doc-item">Exploitation d’une vulnérabilité <span>→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="pole-title">2ème année système et réseau (bloc 2)</h2>
+            <div class="project-card">
+                <div class="project-header" onclick="toggleProject(this)">
+                    <h3>Procédures et Documentations</h3>
+                    <span>▼</span>
+                </div>
+                <div class="project-body">
+                    <div class="docs-list">
+                        <a href="https://docs.google.com/document/d/1NXa26K2wTvjETZvTZ6aT5RqVffdNJavN4_jBm3AkEhA/edit?usp=drive_link" target="_blank" class="doc-item">Activités IPv6 <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1SLxXgcZ3igL3oIc9CzudnneunVZdA_xHelG1xHWgezk/edit?usp=drive_link" target="_blank" class="doc-item">Architecture 3-tiers <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1_PFyegDeXJIsCqKsHBECFVVU4dEUxCvQd_iD5RdTRa0/edit?usp=drive_link" target="_blank" class="doc-item">Configuration avancée de BIND9 <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1Lbhe1ZTP7smU1poxG_XrWUEufautVMeWq_lWhBJVYY4/edit?usp=drive_link" target="_blank" class="doc-item">Configuration d’OSPFv3 Multi-Area pour IPv6 <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1SKRWTXtu43kUETkW_YvdS21v9Vw23swla5qJz1yra6w/edit?usp=drive_link" target="_blank" class="doc-item">Configuration du routage dynamique RIPng (IPV6) <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1JqJxy6k7GVugavtoeuATHkWfiBStY1aLtlrUhd7Hgm0/edit?usp=drive_link" target="_blank" class="doc-item">PROCÉDURE Centralisation et d'Analyse de Logs <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1djMaJ8wiSENLN1HIzyZ_qoexxaWcw3ntSNBC2NtssME/edit?usp=drive_link" target="_blank" class="doc-item">Gestion du RAID logiciel sous Linux <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1a_nsX80YcUTKTWVyfTrSF7hCq9pPoY_dHSpcFLPcpf4/edit?usp=drive_link" target="_blank" class="doc-item">Procédure TP_OpenLDAP <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1TrxadqP-v8-vMHVwBz_1gMIAVVpn1ItoJVGzlbOBxbc/edit?usp=drive_link" target="_blank" class="doc-item">Le serveur de courriers Postfix <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1hA6kuY65qTLYqmrrMZsV1-G23gpWixNbr7nAgx5y2JY/edit?usp=drive_link" target="_blank" class="doc-item">Le serveur ProFTP <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1PAmBgboiGBmvnCsFr-PryDLVNlwLVueGaof1GUEnmcE/edit?usp=drive_link" target="_blank" class="doc-item">Gestion Comptes, Groupes, Partages (Méthode AGDLP) <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1UM6WqSKcKrdSbAb6PF0g-MJeIKdgqpSiz8Okkj87DMU/edit?usp=drive_link" target="_blank" class="doc-item">Pratique-IPv6-DHCPv6 <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1bSLEzVPw1YOTR382Hbr2EQAjJ6-kMn1EBmNUYd22hRg/edit?usp=drive_link" target="_blank" class="doc-item">Procédure FTPS <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1BcBYE7YqGHOoDuyfd0YmtSrfO72gHesz3Pr4JmpasU8/edit?usp=drive_link" target="_blank" class="doc-item">Samba 4 en contrôleur de domaine <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1oQT0CCtWpC8u9RtIfLRE1jM2k9qXCg8pBnZCFuRdvUg/edit?usp=drive_link" target="_blank" class="doc-item">Windows Serveur AD <span>→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="pole-title">Stage en Entreprise</h2>
+            <div class="project-card">
+                <div class="project-header" onclick="toggleProject(this)">
+                    <h3>Procédures et Documentations</h3>
+                    <span>▼</span>
+                </div>
+                <div class="project-body">
+                    <div class="docs-list">
+                        <a href="https://drive.google.com/file/d/15lB6XreDHZNszVkIqLXDtm3p9bpbyErH/view?usp=drive_link" target="_blank" class="doc-item">Configuration VirtualBox et Pfsense <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1fUI-ccDpVa6wZOft3CcBzvRr0FzVP3C2ZggLbC0LFYo/edit?usp=drive_link" target="_blank" class="doc-item">Préconisations AD <span>→</span></a>
+                        <a href="https://docs.google.com/document/d/1y1rCyhfG_mFNmgfZcdHbpClVag0643zNHCysJ8ArVKw/edit?usp=drive_link" target="_blank" class="doc-item">ticketing <span>→</span></a>
+                        <a href="#" class="doc-item">création de session <span>→</span></a>
+                        <a href="#" class="doc-item">création environnement de travail personnel <span>→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="pole-title" id="veille">Veille Technologique</h2>
+            <div class="placeholder-section">
+                <p style="font-weight:700; margin-bottom:1rem;">Section en attente</p>
+                <p>Emplacement réservé pour tes articles et synthèses de veille technologique.</p>
+            </div>
+
+            <h2 class="pole-title" id="synthese">Tableau de Synthèse</h2>
+            <div class="placeholder-section">
+                <p style="font-weight:700; margin-bottom:1rem;">Tableau de compétences E5</p>
+                <p>Emplacement réservé pour la grille d'évaluation du BTS SIO.</p>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<footer style="padding: 4rem 10%; background: #fff; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 5rem;">
+    Arthur Cossé © 2026 — Portfolio réalisé pour l'Épreuve E5 (SISR)
+</footer>
+
+<script>
+    function toggleProject(header) {
+        const card = header.parentElement;
+        card.classList.toggle('active');
+        const icon = header.querySelector('span');
+        icon.innerText = card.classList.contains('active') ? '▲' : '▼';
+    }
+
+    // Animation au chargement
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(20px)";
+            setTimeout(() => {
+                card.style.transition = "0.5s ease-out";
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0)";
+            }, 100 * index);
+        });
+    });
+</script>
+
+</body>
+</html>
