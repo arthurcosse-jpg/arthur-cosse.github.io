@@ -9,129 +9,481 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
     <style>
-        /* STYLE DES PROJETS D'ÉTUDE */
-        .study-projects { margin-bottom: 4rem; }
-        .project-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-            gap: 2rem; 
-            margin-top: 2rem; 
+        /* ===== VARIABLES CSS (placées en premier, avant tout usage) ===== */
+        :root {
+            --bg: #f9fafb;
+            --bg-white: #ffffff;
+            --text: #111827;
+            --muted: #6b7280;
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --border: #e5e7eb;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 30px -5px rgba(37, 99, 235, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .nav-links { display: flex; align-items: center; gap: 0; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            margin-left: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            margin-top: 72px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            width: fit-content;
+            border: 1px solid rgba(37,99,235,0.2);
+            animation: fadeSlideDown 0.6s ease-out both;
+        }
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            font-weight: 800;
+            animation: fadeSlideDown 0.6s ease-out 0.1s both;
+        }
+        .hero p {
+            max-width: 600px;
+            font-size: 1.15rem;
+            color: var(--muted);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            animation: fadeSlideDown 0.6s ease-out 0.2s both;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeSlideDown 0.6s ease-out 0.3s both;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.6rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.6rem;
+            background: white;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            padding: 2rem 10% 4rem 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .portfolio-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .profile-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        .avatar {
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
+            color: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Syne', sans-serif;
+            box-shadow: 0 8px 20px rgba(37,99,235,0.3);
+        }
+        .contact-info {
+            font-size: 0.88rem;
+            margin-bottom: 0.75rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-info a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+        .contact-info a:hover { color: var(--accent); }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--accent);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+        }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        .skills-section { margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+        .skills-label {
+            font-weight: 800;
+            font-size: 0.72rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin: 3px 3px 3px 0;
+            border: 1px solid rgba(37,99,235,0.15);
+        }
+
+        /* ===== TITRES DE SECTIONS ===== */
+        .pole-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.7rem;
+            margin: 3rem 0 0.5rem 0;
+            border-left: 5px solid var(--accent);
+            padding-left: 1rem;
+            letter-spacing: -0.5px;
+        }
+        .pole-subtitle {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+        }
+
+        /* ===== PROJETS D'ÉTUDE (CARDS) ===== */
+        .study-projects { margin-bottom: 1rem; }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         .study-card {
             background: white;
             border-left: 5px solid var(--accent);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             padding: 1.8rem;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            gap: 1rem;
         }
-        .study-card:hover { transform: scale(1.02); }
+        .study-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px -8px rgba(0,0,0,0.12); }
         .study-tag {
             font-size: 0.7rem;
             text-transform: uppercase;
             font-weight: 800;
             color: var(--accent);
             letter-spacing: 1px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             display: block;
         }
-        .study-card h3 { margin-bottom: 1rem; font-size: 1.25rem; color: #1e293b; }
-        .study-card p { font-size: 0.9rem; color: #64748b; line-height: 1.6; margin-bottom: 1.2rem; }
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+        .study-card h3 { margin-bottom: 0.6rem; font-size: 1.1rem; color: #1e293b; line-height: 1.3; }
+        .study-card p { font-size: 0.88rem; color: #64748b; line-height: 1.6; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.8rem; }
         .tech-pill {
             background: #f1f5f9;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.73rem;
             color: #475569;
             font-weight: 600;
         }
-        /* STYLE DES CARTES DE COMPÉTENCES */
-        .competence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .comp-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: transform 0.3s ease; }
-        .comp-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .comp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: var(--accent); font-weight: 700; font-family: 'Syne', sans-serif; text-transform: uppercase; border-bottom: 2px solid var(--accent-light); padding-bottom: 0.5rem; }
-        .comp-project { margin-bottom: 1rem; }
-        .comp-project strong { font-size: 0.95rem; color: var(--text); display: block; margin-bottom: 5px; }
-        .comp-list { display: flex; flex-wrap: wrap; gap: 5px; }
-        .comp-item { font-size: 0.75rem; background: #f3f4f6; color: #4b5563; padding: 2px 8px; border-radius: 4px; border: 1px solid #e5e7eb; }
-        
-        /* BADGES POUR LES PREUVES */
-        .badge-form, .badge-pro { 
-            display: inline-block; font-size: 0.75rem; padding: 2px 8px; 
-            border-radius: 4px; margin-right: 5px; font-weight: 600; margin-top: 5px;
+        .btn-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 0.7rem 1rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 1px solid rgba(37,99,235,0.2);
+            transition: all 0.2s;
+            margin-top: auto;
         }
-        .badge-form { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; } /* Projets École */
-        .badge-pro { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; } /* Projets Stage */
-                :root {
-                    --bg: #f9fafb;
-                    --bg-white: #ffffff;
-                    --text: #111827;
-                    --muted: #6b7280;
-                    --accent: #2563eb;
-                    --accent-light: #eff6ff;
-                    --border: #e5e7eb;
-                    --radius-md: 12px;
-                    --radius-lg: 20px;
-                    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                }
+        .btn-card:hover { background: var(--accent); color: white; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 8%; display: flex; justify-content: space-between; align-items: center;
+        /* ===== PROJET ACCORDION ===== */
+        .project-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
         }
-        .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--accent); text-decoration: none; }
-        .nav-links a { text-decoration: none; color: var(--muted); margin-left: 1.5rem; font-size: 0.85rem; font-weight: 600; transition: 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
-        .nav-links a:hover { color: var(--accent); }
-
-        .hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; margin-top: 80px; }
-        .hero-badge { display: inline-block; padding: 6px 12px; background: var(--accent-light); color: var(--accent); border-radius: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-bottom: 1.5rem; width: fit-content; }
-        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -2px; font-weight: 800; }
-        .hero p { max-width: 650px; font-size: 1.25rem; color: var(--muted); margin-bottom: 2.5rem; font-weight: 300; }
-
-        .container { padding: 2rem 10% 4rem 10%; max-width: 1400px; margin: 0 auto; }
-        .portfolio-layout { display: grid; grid-template-columns: 320px 1fr; gap: 4rem; }
-
-        .sidebar { position: sticky; top: 100px; height: fit-content; }
-        .profile-card { background: var(--bg-white); border: 1px solid var(--border); padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
-        .avatar { width: 70px; height: 70px; background: var(--accent); color: white; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'Syne', sans-serif; }
-        .contact-info { font-size: 0.9rem; margin-bottom: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 10px; }
-        .btn-download { display: block; width: 100%; padding: 1rem; background: var(--accent); color: white; text-align: center; text-decoration: none; border-radius: var(--radius-md); font-weight: 700; margin-top: 2rem; transition: 0.3s; }
-        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3); }
-
-        .pole-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 3rem 0 1.5rem 0; border-left: 5px solid var(--accent); padding-left: 1rem; }
-        
-        .project-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 1.5rem; overflow: hidden; transition: 0.3s; }
-        .project-header { padding: 1.8rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .project-card:hover { box-shadow: var(--shadow); }
+        .project-header {
+            padding: 1.4rem 1.8rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s;
+        }
         .project-header:hover { background: #fafafa; }
-        .project-header h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; }
-        
-        .project-body { display: none; padding: 0 2rem 2rem 2rem; background: #fff; }
+        .project-header h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .project-header .toggle-icon {
+            width: 28px; height: 28px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            transition: transform 0.3s, background 0.2s;
+        }
+        .project-card.active .toggle-icon { background: var(--accent); color: white; transform: rotate(180deg); }
+
+        .project-body { display: none; padding: 0 1.8rem 1.8rem 1.8rem; }
         .project-card.active .project-body { display: block; }
 
-        .docs-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 0.5rem; }
-        .doc-item { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--accent-light); border-radius: var(--radius-md); text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.9rem; transition: 0.2s; border: 1px solid transparent; }
-        .doc-item:hover { border-color: var(--accent); background: white; }
-
-        .placeholder-section { background: #f3f4f6; border: 2px dashed var(--border); border-radius: var(--radius-lg); padding: 4rem; text-align: center; color: var(--muted); margin-top: 2rem; }
-
-        @media (max-width: 1000px) {
-            .portfolio-layout { grid-template-columns: 1fr; }
-            .sidebar { position: static; margin-bottom: 3rem; }
-            .hero { padding: 0 5%; }
-            .container { padding: 2rem 5%; }
+        /* ===== LISTE DE DOCUMENTS ===== */
+        .docs-list { display: grid; grid-template-columns: 1fr; gap: 8px; }
+        .doc-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 1rem;
+            background: var(--accent-light);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: all 0.2s;
+            border: 1px solid transparent;
         }
-        /* TABLEAU DE SYNTHÈSE */
-        .table-responsive { overflow-x: auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow); }
+        .doc-item:hover { border-color: var(--accent); background: white; }
+        .doc-item .doc-arrow { flex-shrink: 0; font-size: 0.9rem; }
+
+        /* ===== VEILLE ===== */
+        .veille-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .veille-header {
+            padding: 1.4rem 1.8rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .veille-header:hover { background: #fafafa; }
+        .veille-header h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; }
+        .veille-body { padding: 0 1.8rem 1.8rem; }
+        .veille-note {
+            background: var(--bg);
+            padding: 10px 14px;
+            border-left: 3px solid var(--accent);
+            margin-top: 12px;
+            font-size: 0.85rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* ===== SOURCES ===== */
+        .sources-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            border: 1px solid #e2e8f0;
+        }
+        .sources-box h4 { margin-bottom: 10px; color: var(--text); font-size: 0.95rem; }
+        .sources-box ul { list-style: none; font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+        .sources-box a { color: var(--accent); text-decoration: none; }
+        .sources-box a:hover { text-decoration: underline; }
+
+        /* ===== SYNTHÈSE ===== */
+        .competence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        .comp-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+        .comp-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+        .comp-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--accent-light);
+            padding-bottom: 0.75rem;
+        }
+        .comp-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.5rem; }
+        .comp-item {
+            font-size: 0.75rem;
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 3px 9px;
+            border-radius: 5px;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* ===== BADGES ===== */
+        .badge-form, .badge-pro {
+            display: inline-block;
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        .badge-form { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+        .badge-pro  { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+
+        /* ===== TABLEAU ===== */
+        .table-responsive {
+            overflow-x: auto;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+        }
         .e5-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
         .e5-table th, .e5-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--border); }
         .e5-table th { background: #f3f4f6; font-weight: 700; color: var(--text); font-family: 'Syne', sans-serif; white-space: nowrap; }
@@ -141,61 +493,126 @@
         .e5-table tr:last-child td { border-bottom: none; }
         .check-x { color: var(--accent); font-weight: 800; font-size: 1.1rem; }
         .domaine-tooltip { cursor: help; border-bottom: 1px dotted var(--muted); }
+
+        /* ===== CTA PDF ===== */
+        .cta-pdf {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .cta-pdf a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.85rem 2rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .cta-pdf a:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 3rem 10%;
+            background: #fff;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 5rem;
+        }
+        footer strong { color: var(--accent); }
+
+        /* ===== ANIMATIONS D'ENTRÉE DES CARTES ===== */
+        .anim-card {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1000px) {
+            .portfolio-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; margin-bottom: 2rem; }
+            .hero { padding: 0 5%; }
+            .container { padding: 2rem 5%; }
+            nav { padding: 1rem 5%; }
+        }
+        @media (max-width: 600px) {
+            .project-grid { grid-template-columns: 1fr; }
+            .hero h1 { letter-spacing: -1px; }
+            .nav-links a { margin-left: 1rem; font-size: 0.78rem; }
+        }
     </style>
 </head>
 <body>
 
+<!-- NAVIGATION -->
 <nav>
     <a href="#accueil" class="nav-brand">AC.SISR</a>
     <div class="nav-links">
-        <a href="#procédures">Procédures</a>
+        <a href="#procedures">Procédures</a>
         <a href="#veille">Veille</a>
         <a href="#synthese">Synthèse</a>
     </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero" id="accueil">
     <div class="hero-badge">// CANDIDAT BTS SIO SISR 2026</div>
     <h1>Arthur Cossé<br><span style="color:var(--muted)">Portfolio Épreuve E5</span></h1>
     <p>Documentations techniques et réalisations professionnelles dans le domaine de la cybersécurité et de l'administration réseaux.</p>
+    <div class="hero-ctas">
+        <a href="cv-arthur-cosse.pdf" target="_blank" class="btn-primary">📄 Télécharger mon CV</a>
+        <a href="#procedures" class="btn-secondary">Voir les projets ↓</a>
+    </div>
 </div>
 
+<!-- CONTENU PRINCIPAL -->
 <div class="container">
     <div class="portfolio-layout">
-        
+
+        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="profile-card">
                 <div class="avatar">AC</div>
-                <h2 style="font-family:'Syne'; margin-bottom:0.5rem;">Arthur Cossé</h2>
-                <p style="font-size:0.85rem; color:var(--muted); margin-bottom:2rem; font-weight:600;">Spécialité SISR</p>
-                
+                <h2 style="font-family:'Syne'; margin-bottom:0.3rem; font-size:1.3rem;">Arthur Cossé</h2>
+                <p style="font-size:0.82rem; color:var(--muted); margin-bottom:1.5rem; font-weight:600;">Spécialité SISR · BTS SIO 2026</p>
+
                 <div class="contact-info">📍 Villers-Bocage, Normandie</div>
-                <div class="contact-info">📞 07 69 58 82 28</div>
-                <div class="contact-info">✉️ arthur.cosse@sts-sio-caen.info</div>
+                <div class="contact-info">📞 <a href="tel:+33769588228">07 69 58 82 28</a></div>
+                <div class="contact-info">✉️ <a href="mailto:arthur.cosse@sts-sio-caen.info">arthur.cosse@sts-sio-caen.info</a></div>
 
-                <a href="cv-arthur-cosse.pdf" target="_blank" class="btn-download">Télécharger mon CV (PDF)</a>
+                <a href="cv-arthur-cosse.pdf" target="_blank" class="btn-download">📄 Télécharger mon CV</a>
 
-                <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
-                    <p style="font-weight: 800; font-size: 0.75rem; color: var(--accent); text-transform: uppercase;">Compétences Clés</p>
-                    <ul style="list-style:none; font-size: 0.85rem; margin-top: 1rem; color: var(--muted);">
-                        <li style="margin-bottom: 0.5rem;">• Windows Server 2022 / AD</li>
-                        <li style="margin-bottom: 0.5rem;">• Supervision Syslog / Grafana</li>
-                        <li style="margin-bottom: 0.5rem;">• Réseaux Cisco (VLAN, Routage)</li>
-                        <li style="margin-bottom: 0.5rem;">• Cybersécurité & Audit</li>
-                    </ul>
+                <div class="skills-section">
+                    <p class="skills-label">Compétences Clés</p>
+                    <span class="skill-tag">🖥 Windows Server 2022</span>
+                    <span class="skill-tag">📂 Active Directory</span>
+                    <span class="skill-tag">📊 Grafana / Zabbix</span>
+                    <span class="skill-tag">🌐 Cisco VLAN / Routage</span>
+                    <span class="skill-tag">🔐 Cybersécurité</span>
+                    <span class="skill-tag">🐧 Linux Debian</span>
+                    <span class="skill-tag">☁️ Proxmox</span>
+                    <span class="skill-tag">🔑 GPO / PSO</span>
                 </div>
             </div>
         </aside>
 
-        <main id="procédures">
+        <!-- MAIN -->
+        <main id="procedures">
+
+            <!-- PROJETS DE FORMATION -->
             <section class="study-projects" id="projets">
                 <h2 class="pole-title">Projets de Formation & Ateliers</h2>
-                <p style="color: var(--muted); max-width: 800px;">
+                <p class="pole-subtitle">
                     Sélection de projets techniques réalisés en laboratoire (maquettage) durant mon cursus, illustrant ma capacité à déployer et sécuriser des infrastructures complexes.
                 </p>
-            
+
                 <div class="project-grid">
-                    <div class="study-card">
+                    <div class="study-card anim-card">
                         <div>
                             <span class="study-tag">Système & Maintenance</span>
                             <h3>Gestion centralisée des mises à jour (WSUS)</h3>
@@ -207,10 +624,10 @@
                                 <span class="tech-pill">Proxmox</span>
                             </div>
                         </div>
-                        <a href="wsus.pdf" target="_blank" class="btn-download">Voir la procédure</a>
+                        <a href="wsus.pdf" target="_blank" class="btn-card">📄 Voir la procédure →</a>
                     </div>
-            
-                    <div class="study-card" style="border-left-color: #ef4444;">
+
+                    <div class="study-card anim-card" style="border-left-color: #ef4444;">
                         <div>
                             <span class="study-tag" style="color: #ef4444;">Cybersécurité</span>
                             <h3>Exploitation de vulnérabilités (EternalBlue)</h3>
@@ -222,10 +639,10 @@
                                 <span class="tech-pill">SMBv1</span>
                             </div>
                         </div>
-                        <a href="cyber-audit.pdf" target="_blank" class="btn-download">Voir le rapport d'audit</a>
+                        <a href="cyber-audit.pdf" target="_blank" class="btn-card" style="color:#ef4444; background:#fff1f2; border-color:rgba(239,68,68,0.2);">📄 Voir le rapport d'audit →</a>
                     </div>
-            
-                    <div class="study-card" style="border-left-color: #f59e0b;">
+
+                    <div class="study-card anim-card" style="border-left-color: #f59e0b;">
                         <div>
                             <span class="study-tag" style="color: #f59e0b;">Supervision</span>
                             <h3>Dashboarding & Visualisation (Grafana)</h3>
@@ -237,10 +654,10 @@
                                 <span class="tech-pill">Linux Debian</span>
                             </div>
                         </div>
-                        <a href="grafana.pdf" target="_blank" class="btn-download">Voir la procédure</a>
+                        <a href="grafana.pdf" target="_blank" class="btn-card" style="color:#f59e0b; background:#fffbeb; border-color:rgba(245,158,11,0.2);">📄 Voir la procédure →</a>
                     </div>
-            
-                    <div class="study-card" style="border-left-color: #10b981;">
+
+                    <div class="study-card anim-card" style="border-left-color: #10b981;">
                         <div>
                             <span class="study-tag" style="color: #10b981;">Infrastructure AD</span>
                             <h3>Sécurisation par GPO (PSO & SRP)</h3>
@@ -252,277 +669,258 @@
                                 <span class="tech-pill">Windows 10</span>
                             </div>
                         </div>
-                        <a href="securite-gpo.pdf" target="_blank" class="btn-download">Voir la documentation</a>
+                        <a href="securite-gpo.pdf" target="_blank" class="btn-card" style="color:#10b981; background:#f0fdf4; border-color:rgba(16,185,129,0.2);">📄 Voir la documentation →</a>
                     </div>
                 </div>
             </section>
 
-            <h2 class="pole-title">1ère année</h2>
-            <div class="project-card">
+            <!-- 1ERE ANNEE -->
+            <h2 class="pole-title" style="margin-top:2.5rem;">1ère année</h2>
+            <div class="project-card anim-card">
                 <div class="project-header" onclick="toggleProject(this)">
                     <h3>Procédures et Documentations</h3>
-                    <span>▼</span>
+                    <div class="toggle-icon">▼</div>
                 </div>
-                <div class="docs-list">
-                        <a href="installation-apache2.pdf" target="_blank" class="doc-item">Installation service web apache2 <span>→</span></a>
-                        <a href="creation-debian.pdf" target="_blank" class="doc-item">Création debian (VirtualBox) <span>→</span></a>
-                        <a href="dns-dynamique.pdf" target="_blank" class="doc-item">DNS dynamique sur debian 12.5 <span>→</span></a>
-                        <a href="dns-secondaire.pdf" target="_blank" class="doc-item">Implémentation d'un serveur DNS Secondaire <span>→</span></a>
-                        <a href="ip-fixe.pdf" target="_blank" class="doc-item">Mettre une IP fixe <span>→</span></a>
-                        <a href="procedure-dns.pdf" target="_blank" class="doc-item">Procédure DNS <span>→</span></a>
-                        <a href="procedure-proxmox.pdf" target="_blank" class="doc-item">Procédure pour machine virtuelle Proxmox <span>→</span></a>
-                        <a href="protocole-dhcp.pdf" target="_blank" class="doc-item">Protocole DHCP et VM VirtualBox <span>→</span></a>
-                        <a href="windows-vm.pdf" target="_blank" class="doc-item">Windows VM <span>→</span></a>
+                <div class="project-body"><!-- FIX: project-body manquant en original -->
+                    <div class="docs-list">
+                        <a href="installation-apache2.pdf" target="_blank" class="doc-item">Installation service web apache2 <span class="doc-arrow">→</span></a>
+                        <a href="creation-debian.pdf" target="_blank" class="doc-item">Création debian (VirtualBox) <span class="doc-arrow">→</span></a>
+                        <a href="dns-dynamique.pdf" target="_blank" class="doc-item">DNS dynamique sur debian 12.5 <span class="doc-arrow">→</span></a>
+                        <a href="dns-secondaire.pdf" target="_blank" class="doc-item">Implémentation d'un serveur DNS Secondaire <span class="doc-arrow">→</span></a>
+                        <a href="ip-fixe.pdf" target="_blank" class="doc-item">Mettre une IP fixe <span class="doc-arrow">→</span></a>
+                        <a href="procedure-dns.pdf" target="_blank" class="doc-item">Procédure DNS <span class="doc-arrow">→</span></a>
+                        <a href="procedure-proxmox.pdf" target="_blank" class="doc-item">Procédure pour machine virtuelle Proxmox <span class="doc-arrow">→</span></a>
+                        <a href="protocole-dhcp.pdf" target="_blank" class="doc-item">Protocole DHCP et VM VirtualBox <span class="doc-arrow">→</span></a>
+                        <a href="windows-vm.pdf" target="_blank" class="doc-item">Windows VM <span class="doc-arrow">→</span></a>
                     </div>
                 </div>
             </div>
 
-            <h2 class="pole-title">2ème année cyber (bloc 3)</h2>
-            <div class="project-card">
+            <!-- 2EME ANNEE CYBER -->
+            <h2 class="pole-title">2ème année — Cybersécurité (bloc 3)</h2>
+            <div class="project-card anim-card">
                 <div class="project-header" onclick="toggleProject(this)">
                     <h3>Procédures et Documentations</h3>
-                    <span>▼</span>
+                    <div class="toggle-icon">▼</div>
                 </div>
                 <div class="project-body">
                     <div class="docs-list">
-                        <a href="acl.pdf" target="_blank" class="doc-item">Mise en oeuvre de listes d'accès (ACL) <span>→</span></a>
-                        <a href="tp-attaque-dhcp.pdf" target="_blank" class="doc-item">TP Attaque DHCP <span>→</span></a>
-                        <a href="mitm-arp-poisoning.pdf" target="_blank" class="doc-item">Test de l’attaque MITM-ARP Poisoning <span>→</span></a>
-                        <a href="configuration-nat.pdf" target="_blank" class="doc-item">Configuration de la NAT <span>→</span></a>
-                        <a href="partie1-mitm-ssh.pdf" target="_blank" class="doc-item">Partie 1 – Attaque MITM d’un service SSH <span>→</span></a>
-                        <a href="partie2-contre-mesures.pdf" target="_blank" class="doc-item">Partie 2 - Mise en place de contre-mesures <span>→</span></a>
-                        <a href="partie3-securite-ssh.pdf" target="_blank" class="doc-item">Partie 3 – Bonnes pratiques et sécurité (OpenSSH) <span>→</span></a>
-                        <a href="tp-vpn.pdf" target="_blank" class="doc-item">TP VPN <span>→</span></a>
-                        <a href="exploitation-vulnerabilite.pdf" target="_blank" class="doc-item">Exploitation d’une vulnérabilité (Windows) <span>→</span></a>
-                        <a href="cisco-configuration-base.pdf" target="_blank" class="doc-item">Configuration de base d'un commutateur Cisco <span>→</span>
-                        <a href="cisco-configuration-avancee.pdf" target="_blank" class="doc-item">Configuration avancée d'un commutateur Cisco <span>→</span>
-                        <a href="routage-inter-vlan.pdf" target="_blank" class="doc-item">Routage inter-VLAN <span>→</span>
-                        <a href="switch-cisco.pdf" target="_blank" class="doc-item">Configuration de matériel Cisco <span>→</span>
+                        <a href="acl.pdf" target="_blank" class="doc-item">Mise en œuvre de listes d'accès (ACL) <span class="doc-arrow">→</span></a>
+                        <a href="tp-attaque-dhcp.pdf" target="_blank" class="doc-item">TP Attaque DHCP <span class="doc-arrow">→</span></a>
+                        <a href="mitm-arp-poisoning.pdf" target="_blank" class="doc-item">Test de l'attaque MITM-ARP Poisoning <span class="doc-arrow">→</span></a>
+                        <a href="configuration-nat.pdf" target="_blank" class="doc-item">Configuration de la NAT <span class="doc-arrow">→</span></a>
+                        <a href="partie1-mitm-ssh.pdf" target="_blank" class="doc-item">Partie 1 – Attaque MITM d'un service SSH <span class="doc-arrow">→</span></a>
+                        <a href="partie2-contre-mesures.pdf" target="_blank" class="doc-item">Partie 2 – Mise en place de contre-mesures <span class="doc-arrow">→</span></a>
+                        <a href="partie3-securite-ssh.pdf" target="_blank" class="doc-item">Partie 3 – Bonnes pratiques et sécurité (OpenSSH) <span class="doc-arrow">→</span></a>
+                        <a href="tp-vpn.pdf" target="_blank" class="doc-item">TP VPN <span class="doc-arrow">→</span></a>
+                        <a href="exploitation-vulnerabilite.pdf" target="_blank" class="doc-item">Exploitation d'une vulnérabilité (Windows) <span class="doc-arrow">→</span></a>
+                        <a href="cisco-configuration-base.pdf" target="_blank" class="doc-item">Configuration de base d'un commutateur Cisco <span class="doc-arrow">→</span></a>
+                        <a href="cisco-configuration-avancee.pdf" target="_blank" class="doc-item">Configuration avancée d'un commutateur Cisco <span class="doc-arrow">→</span></a>
+                        <a href="routage-inter-vlan.pdf" target="_blank" class="doc-item">Routage inter-VLAN <span class="doc-arrow">→</span></a>
+                        <a href="switch-cisco.pdf" target="_blank" class="doc-item">Configuration de matériel Cisco <span class="doc-arrow">→</span></a>
                     </div>
                 </div>
             </div>
 
-            <h2 class="pole-title">2ème année système et réseau (bloc 2)</h2>
-            <div class="project-card">
+            <!-- 2EME ANNEE SYSTEME -->
+            <h2 class="pole-title">2ème année — Système et Réseau (bloc 2)</h2>
+            <div class="project-card anim-card">
                 <div class="project-header" onclick="toggleProject(this)">
                     <h3>Procédures et Documentations</h3>
-                    <span>▼</span>
+                    <div class="toggle-icon">▼</div>
                 </div>
                 <div class="project-body">
                     <div class="docs-list">
-                        <a href="activites-ipv6.pdf" target="_blank" class="doc-item">Activités IPv6 <span>→</span></a>
-                        <a href="architecture-3-tiers.pdf" target="_blank" class="doc-item">Architecture 3-tiers <span>→</span></a>
-                        <a href="configuration-bind9.pdf" target="_blank" class="doc-item">Configuration avancée de BIND9 <span>→</span></a>
-                        <a href="configuration-ospfv3.pdf" target="_blank" class="doc-item">Configuration d’OSPFv3 Multi-Area pour IPv6 <span>→</span></a>
-                        <a href="configuration-ripng.pdf" target="_blank" class="doc-item">Configuration du routage dynamique RIPng (IPV6) <span>→</span></a>
-                        <a href="procedure-logs.pdf" target="_blank" class="doc-item">PROCÉDURE Centralisation et d'Analyse de Logs <span>→</span></a>
-                        <a href="gestion-raid.pdf" target="_blank" class="doc-item">Gestion du RAID logiciel sous Linux <span>→</span></a>
-                        <a href="grafana.pdf" target="_blank" class="doc-item">GRAFANA <span>→</span></a>
-                        <a href="haproxy.pdf" target="_blank" class="doc-item">HAPROXY <span>→</span></a>
-                        <a href="procedure-openldap.pdf" target="_blank" class="doc-item">Procédure TP_OpenLDAP <span>→</span></a>
-                        <a href="courrier-postfix.pdf" target="_blank" class="doc-item">Le service de courrier Postfix <span>→</span></a>
-                        <a href="serveur-proftp.pdf" target="_blank" class="doc-item">Le serveur Proftp <span>→</span></a>
-                        <a href="gestion-comptes-agdlp.pdf" target="_blank" class="doc-item">Gestion des Comptes, Groupes et Partages sous Windows (AGDLP) <span>→</span></a>
-                        <a href="samba4-ad.pdf" target="_blank" class="doc-item">Samba 4 en contrôleur de domaine <span>→</span></a>
-                        <a href="pratique-ipv6-dhcpv6.pdf" target="_blank" class="doc-item">Pratique-IPv6-DHCPv6 <span>→</span></a>
+                        <a href="activites-ipv6.pdf" target="_blank" class="doc-item">Activités IPv6 <span class="doc-arrow">→</span></a>
+                        <a href="architecture-3-tiers.pdf" target="_blank" class="doc-item">Architecture 3-tiers <span class="doc-arrow">→</span></a>
+                        <a href="configuration-bind9.pdf" target="_blank" class="doc-item">Configuration avancée de BIND9 <span class="doc-arrow">→</span></a>
+                        <a href="configuration-ospfv3.pdf" target="_blank" class="doc-item">Configuration d'OSPFv3 Multi-Area pour IPv6 <span class="doc-arrow">→</span></a>
+                        <a href="configuration-ripng.pdf" target="_blank" class="doc-item">Configuration du routage dynamique RIPng (IPv6) <span class="doc-arrow">→</span></a>
+                        <a href="procedure-logs.pdf" target="_blank" class="doc-item">Centralisation et analyse de logs (Syslog) <span class="doc-arrow">→</span></a>
+                        <a href="gestion-raid.pdf" target="_blank" class="doc-item">Gestion du RAID logiciel sous Linux <span class="doc-arrow">→</span></a>
+                        <a href="grafana.pdf" target="_blank" class="doc-item">Monitoring avec Grafana <span class="doc-arrow">→</span></a>
+                        <a href="haproxy.pdf" target="_blank" class="doc-item">Load Balancing avec HAProxy <span class="doc-arrow">→</span></a>
+                        <a href="procedure-openldap.pdf" target="_blank" class="doc-item">TP OpenLDAP <span class="doc-arrow">→</span></a>
+                        <a href="courrier-postfix.pdf" target="_blank" class="doc-item">Le service de courrier Postfix <span class="doc-arrow">→</span></a>
+                        <a href="serveur-proftp.pdf" target="_blank" class="doc-item">Le serveur ProFTP <span class="doc-arrow">→</span></a>
+                        <a href="gestion-comptes-agdlp.pdf" target="_blank" class="doc-item">Gestion des comptes, groupes et partages (AGDLP) <span class="doc-arrow">→</span></a>
+                        <a href="samba4-ad.pdf" target="_blank" class="doc-item">Samba 4 en contrôleur de domaine <span class="doc-arrow">→</span></a>
+                        <a href="pratique-ipv6-dhcpv6.pdf" target="_blank" class="doc-item">Pratique IPv6 / DHCPv6 <span class="doc-arrow">→</span></a>
                     </div>
                 </div>
             </div>
 
+            <!-- STAGE EN ENTREPRISE -->
             <h2 class="pole-title">Stage en Entreprise</h2>
-            <div class="project-card">
+            <div class="project-card anim-card">
                 <div class="project-header" onclick="toggleProject(this)">
                     <h3>Procédures et Documentations</h3>
-                    <span>▼</span>
+                    <div class="toggle-icon">▼</div>
                 </div>
                 <div class="project-body">
                     <div class="docs-list">
-                        <a href="protocole-http.pdf" target="_blank" class="doc-item">Protocole http <span>→</span></a>
-                        <a href="preconisations-ad.pdf" target="_blank" class="doc-item">Préconisations AD <span>→</span></a>
-                        <a href="configuration-virtualbox-pfsense.pdf" target="_blank" class="doc-item">Configuration VirtualBox et Pfsense <span>→</span></a>
+                        <a href="protocole-http.pdf" target="_blank" class="doc-item">Protocole HTTP <span class="doc-arrow">→</span></a>
+                        <a href="preconisations-ad.pdf" target="_blank" class="doc-item">Préconisations Active Directory <span class="doc-arrow">→</span></a>
+                        <a href="configuration-virtualbox-pfsense.pdf" target="_blank" class="doc-item">Configuration VirtualBox et pfSense <span class="doc-arrow">→</span></a>
                     </div>
                 </div>
             </div>
 
+            <!-- VEILLE TECHNOLOGIQUE -->
             <h2 class="pole-title" id="veille">Veille Technologique</h2>
-            
-            <p style="color: var(--muted); margin-bottom: 1.5rem;">
+            <p class="pole-subtitle">
                 <strong>Thème d'étude :</strong> L'évolution de l'automatisation IT avec les IA Agentiques et les Turing Bots.
             </p>
 
-            <div class="project-card active">
-                <div class="project-header" onclick="toggleProject(this)">
+            <div class="veille-card project-card active">
+                <div class="veille-header project-header" onclick="toggleProject(this)">
                     <h3>Les IA Agentiques (Agentic AI)</h3>
-                    <span>▲</span>
+                    <div class="toggle-icon">▼</div>
                 </div>
-                <div class="project-body">
-                    <p>
-                        Contrairement aux IA conversationnelles, les IA agentiques sont dotées d'autonomie pour planifier et exécuter des actions via des outils externes (scripts, API) afin d'atteindre un objectif global.
-                    </p>
-                    <div style="background: var(--bg); padding: 10px; border-left: 3px solid var(--accent); margin-top: 10px; font-size: 0.85rem;">
+                <div class="project-body veille-body">
+                    <p>Contrairement aux IA conversationnelles, les IA agentiques sont dotées d'autonomie pour planifier et exécuter des actions via des outils externes (scripts, API) afin d'atteindre un objectif global.</p>
+                    <div class="veille-note">
                         <strong>Application SISR :</strong> Auto-remédiation de pannes réseau et Threat Hunting automatisé.
                     </div>
                 </div>
             </div>
 
-            <div class="project-card active">
-                <div class="project-header" onclick="toggleProject(this)">
+            <div class="veille-card project-card active">
+                <div class="veille-header project-header" onclick="toggleProject(this)">
                     <h3>Les Turing Bots</h3>
-                    <span>▲</span>
+                    <div class="toggle-icon">▼</div>
                 </div>
-                <div class="project-body">
-                    <p>
-                        Assistants logiciels dopés à l'IA qui accompagnent les professionnels de l'IT sur tout le cycle de vie : conception, génération de scripts d'infrastructure (IaC) et tests de sécurité.
-                    </p>
-                    <div style="background: var(--bg); padding: 10px; border-left: 3px solid var(--accent); margin-top: 10px; font-size: 0.85rem;">
+                <div class="project-body veille-body">
+                    <p>Assistants logiciels dopés à l'IA qui accompagnent les professionnels de l'IT sur tout le cycle de vie : conception, génération de scripts d'infrastructure (IaC) et tests de sécurité.</p>
+                    <div class="veille-note">
                         <strong>Application SISR :</strong> Génération de scripts Ansible/Terraform sécurisés et audit de configuration automatique.
                     </div>
                 </div>
             </div>
 
-            <div style="margin-top: 2rem; padding: 1.5rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <h4 style="margin-bottom: 10px; color: var(--text); font-size: 1rem;">📚 Sources et Références :</h4>
-                <ul style="list-style: none; font-size: 0.85rem; color: var(--muted); line-height: 1.6;">
-                    <li>
-                        🔗 <strong>Gartner :</strong> 
-                        <a href="https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2025" target="_blank" style="color: var(--accent); text-decoration: none;">
-                            Top 10 Strategic Technology Trends for 2025 (Agentic AI)
-                        </a>
-                    </li>
-                    <li>
-                        🔗 <strong>Forrester :</strong> 
-                        <a href="https://www.forrester.com/blogs/category/turingbots/" target="_blank" style="color: var(--accent); text-decoration: none;">
-                            The Future of Software Development with TuringBots
-                        </a>
-                    </li>
-                    <li>
-                        🔗 <strong>Cisco News :</strong> 
-                        <a href="https://news-blogs.cisco.com/" target="_blank" style="color: var(--accent); text-decoration: none;">
-                            AI in Networking and Cybersecurity Operations (SecOps)
-                        </a>
-                    </li>
-                    <li>
-                        🔗 <strong>Outils de veille :</strong> Google Alerts, Feedly (flux RSS de sites spécialisés comme ZDNet et Le Monde Informatique).
-                    </li>
+            <div class="sources-box">
+                <h4>📚 Sources et Références :</h4>
+                <ul>
+                    <li>🔗 <strong>Gartner :</strong> <a href="https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2025" target="_blank">Top 10 Strategic Technology Trends for 2025 (Agentic AI)</a></li>
+                    <li>🔗 <strong>Forrester :</strong> <a href="https://www.forrester.com/blogs/category/turingbots/" target="_blank">The Future of Software Development with TuringBots</a></li>
+                    <li>🔗 <strong>Cisco News :</strong> <a href="https://news-blogs.cisco.com/" target="_blank">AI in Networking and Cybersecurity Operations (SecOps)</a></li>
+                    <li>🔗 <strong>Outils de veille :</strong> Google Alerts, Feedly (flux RSS de sites spécialisés comme ZDNet et Le Monde Informatique).</li>
                 </ul>
             </div>
 
+            <!-- SYNTHÈSE DES COMPÉTENCES -->
             <h2 class="pole-title" id="synthese">Synthèse des Compétences</h2>
-            <p style="color: var(--muted);">Retrouvez ici l'ensemble des compétences du référentiel SISR mobilisées durant mon parcours.</p>
+            <p class="pole-subtitle">Retrouvez ici l'ensemble des compétences du référentiel SISR mobilisées durant mon parcours.</p>
 
             <div class="competence-grid">
                 <div class="comp-card">
                     <div class="comp-header">📂 Gérer le patrimoine informatique (D1)</div>
-                    <div class="comp-project">
-                        <strong>Réalisations associées :</strong>
-                        <div class="comp-list">
-                            <span class="comp-item">Recenser les ressources (Stage 1)</span>
-                            <span class="comp-item">Exploiter des référentiels (Maintenance IP)</span>
-                            <span class="comp-item">Gérer les habilitations (AD/Samba4)</span>
-                            <span class="comp-item">Sauvegardes & Continuité (RAID/Logs)</span>
-                            <span class="comp-item">Vérifier le respect des règles (Audit AD)</span>
-                        </div>
+                    <div class="comp-list">
+                        <span class="comp-item">Recenser les ressources (Stage 1)</span>
+                        <span class="comp-item">Exploiter des référentiels (Maintenance IP)</span>
+                        <span class="comp-item">Gérer les habilitations (AD/Samba4)</span>
+                        <span class="comp-item">Sauvegardes & Continuité (RAID/Logs)</span>
+                        <span class="comp-item">Vérifier le respect des règles (Audit AD)</span>
                     </div>
                 </div>
 
                 <div class="comp-card">
                     <div class="comp-header">🛠 Support & Incidents (D2)</div>
-                    <div class="comp-project">
-                        <strong>Réalisations associées :</strong>
-                        <div class="comp-list">
-                            <span class="comp-item">Collecter & orienter les demandes (GLPI)</span>
-                            <span class="comp-item">Traiter les incidents réseau/système</span>
-                            <span class="comp-item">Support applicatif & métier (Stage 1 & 2)</span>
-                            <span class="comp-item">Accompagnement utilisateurs</span>
-                        </div>
+                    <div class="comp-list">
+                        <span class="comp-item">Collecter & orienter les demandes (GLPI)</span>
+                        <span class="comp-item">Traiter les incidents réseau/système</span>
+                        <span class="comp-item">Support applicatif & métier (Stage 1 & 2)</span>
+                        <span class="comp-item">Accompagnement utilisateurs</span>
                     </div>
                 </div>
-                
+
                 <div class="comp-card">
                     <div class="comp-header">🌐 Présence en ligne (D3)</div>
-                    <div class="comp-project">
-                        <strong>Réalisations associées :</strong>
-                        <div class="comp-list">
-                            <span class="comp-item">Participer à l'évolution d'un site</span>
-                            <span class="comp-item">Valorisation de l'image de l'organisation</span>
-                        </div>
+                    <div class="comp-list">
+                        <span class="comp-item">Participer à l'évolution d'un site</span>
+                        <span class="comp-item">Valorisation de l'image de l'organisation</span>
                     </div>
                 </div>
-                
+
                 <div class="comp-card">
                     <div class="comp-header">📊 Travailler en mode projet (D4)</div>
-                    <div class="comp-project">
-                        <strong>Réalisations associées :</strong>
-                        <div class="comp-list">
-                            <span class="comp-item">Analyser les objectifs (Maquettage)</span>
-                            <span class="comp-item">Planifier les activités (Terrain)</span>
-                            <span class="comp-item">Tests d'intégration & acceptation</span>
-                        </div>
+                    <div class="comp-list">
+                        <span class="comp-item">Analyser les objectifs (Maquettage)</span>
+                        <span class="comp-item">Planifier les activités (Terrain)</span>
+                        <span class="comp-item">Tests d'intégration & acceptation</span>
                     </div>
                 </div>
 
                 <div class="comp-card">
                     <div class="comp-header">🚀 Mise à disposition de service (D5)</div>
-                    <div class="comp-project">
-                        <strong>Réalisations associées :</strong>
-                        <div class="comp-list">
-                            <span class="comp-item">Déployer un service (Infra IPv6/VPN)</span>
-                            <span class="comp-item">Masterisation de postes (WDS/MDT)</span>
-                            <span class="comp-item">Hébergement Web & Mail (Apache/Postfix)</span>
-                            <span class="comp-item">Virtualisation (Proxmox)</span>
-                        </div>
+                    <div class="comp-list">
+                        <span class="comp-item">Déployer un service (Infra IPv6/VPN)</span>
+                        <span class="comp-item">Masterisation de postes (WDS/MDT)</span>
+                        <span class="comp-item">Hébergement Web & Mail (Apache/Postfix)</span>
+                        <span class="comp-item">Virtualisation (Proxmox)</span>
                     </div>
                 </div>
 
                 <div class="comp-card">
                     <div class="comp-header">📈 Développement Professionnel (D6)</div>
-                    <div class="comp-project">
-                        <strong>Réalisations associées :</strong>
-                        <div class="comp-list">
-                            <span class="comp-item">Veille technologique (IA Agentiques)</span>
-                            <span class="comp-item">Gestion du portfolio</span>
-                            <span class="comp-item">Développer son identité pro</span>
-                        </div>
+                    <div class="comp-list">
+                        <span class="comp-item">Veille technologique (IA Agentiques)</span>
+                        <span class="comp-item">Gestion du portfolio</span>
+                        <span class="comp-item">Développer son identité pro</span>
                     </div>
                 </div>
             </div>
 
-            <div style="margin-top: 2rem; text-align: center;">
-                <a href="Tableau-de-synthese-E5.pdf" target="_blank" class="btn-download" style="display: inline-block; width: auto; padding: 0.8rem 2rem;">
-                    Consulter le tableau de synthèse officiel (PDF)
-                </a>
+            <div class="cta-pdf">
+                <a href="Tableau-de-synthese-E5.pdf" target="_blank">📊 Consulter le tableau de synthèse officiel (PDF)</a>
             </div>
 
-<footer style="padding: 4rem 10%; background: #fff; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 5rem;">
-    Arthur Cossé © 2026 — Portfolio réalisé pour l'Épreuve E5 (SISR)
+        </main>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <strong>Arthur Cossé</strong> © 2026 — Portfolio réalisé pour l'Épreuve E5 · BTS SIO <strong>SISR</strong>
 </footer>
 
 <script>
+    /* ===== TOGGLE ACCORDÉON ===== */
     function toggleProject(header) {
-        const card = header.parentElement;
+        const card = header.closest('.project-card');
         card.classList.toggle('active');
-        const icon = header.querySelector('span');
-        icon.innerText = card.classList.contains('active') ? '▲' : '▼';
+        // L'icône tourne via CSS (.project-card.active .toggle-icon)
     }
 
-    // Animation au chargement
-    window.addEventListener('load', () => {
-        document.querySelectorAll('.project-card').forEach((card, index) => {
-            card.style.opacity = "0";
-            card.style.transform = "translateY(20px)";
-            setTimeout(() => {
-                card.style.transition = "0.5s ease-out";
-                card.style.opacity = "1";
-                card.style.transform = "translateY(0)";
-            }, 100 * index);
+    /* ===== ANIMATION D'ENTRÉE DES CARTES (IntersectionObserver) ===== */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.anim-card').forEach((card, i) => {
+        card.style.transitionDelay = `${i * 60}ms`;
+        observer.observe(card);
+    });
+
+    /* ===== LIEN ACTIF DANS LA NAV ===== */
+    const sections = document.querySelectorAll('[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            if (window.scrollY >= section.offsetTop - 120) current = section.id;
+        });
+        navLinks.forEach(link => {
+            link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
         });
     });
-    function toggleSkill(header) {
-    const body = header.nextElementSibling;
-    const isVisible = body.style.display === 'block';
-    body.style.display = isVisible ? 'none' : 'block';
-    header.querySelector('.plus').innerText = isVisible ? '+' : '-';
-    }
 </script>
 
 </body>
