@@ -9,18 +9,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg: #f9fafb;
-            --bg-white: #ffffff;
-            --text: #111827;
-            --muted: #6b7280;
-            --accent: #2563eb;
-            --accent-light: #eff6ff;
-            --border: #e5e7eb;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        /* DESIGN DES COMPÉTENCES */
+        .skills-grid { display: flex; flex-direction: column; gap: 15px; }
+        .skill-category { background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
+        .skill-cat-header { 
+            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; 
+            transition: background 0.3s;
         }
+        .skill-cat-header:hover { background: #f9fafb; }
+        .cat-info { display: flex; align-items: center; gap: 15px; }
+        .cat-code { 
+            background: #2563eb; color: white; font-weight: 800; padding: 5px 10px; 
+            border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+        }
+        .cat-name { font-weight: 700; font-family: 'Syne', sans-serif; color: #111827; }
+        .skill-cat-body { display: none; padding: 0 20px 20px 20px; border-top: 1px solid #f3f4f6; }
+        .sub-skills { list-style: none; margin-top: 15px; }
+        .sub-skills li { margin-bottom: 12px; font-size: 0.9rem; color: #4b5563; line-height: 1.4; }
+        .sub-skills strong { color: #111827; display: block; margin-bottom: 4px; }
+        
+        /* BADGES POUR LES PREUVES */
+        .badge-form, .badge-pro { 
+            display: inline-block; font-size: 0.75rem; padding: 2px 8px; 
+            border-radius: 4px; margin-right: 5px; font-weight: 600; margin-top: 5px;
+        }
+        .badge-form { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; } /* Projets École */
+        .badge-pro { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; } /* Projets Stage */
+                :root {
+                    --bg: #f9fafb;
+                    --bg-white: #ffffff;
+                    --text: #111827;
+                    --muted: #6b7280;
+                    --accent: #2563eb;
+                    --accent-light: #eff6ff;
+                    --border: #e5e7eb;
+                    --radius-md: 12px;
+                    --radius-lg: 20px;
+                    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -378,6 +404,12 @@
             }, 100 * index);
         });
     });
+    function toggleSkill(header) {
+    const body = header.nextElementSibling;
+    const isVisible = body.style.display === 'block';
+    body.style.display = isVisible ? 'none' : 'block';
+    header.querySelector('.plus').innerText = isVisible ? '+' : '-';
+    }
 </script>
 
 </body>
