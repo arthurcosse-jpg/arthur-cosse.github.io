@@ -9,24 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
     <style>
-        /* DESIGN DES COMPÉTENCES */
-        .skills-grid { display: flex; flex-direction: column; gap: 15px; }
-        .skill-category { background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
-        .skill-cat-header { 
-            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; 
-            transition: background 0.3s;
-        }
-        .skill-cat-header:hover { background: #f9fafb; }
-        .cat-info { display: flex; align-items: center; gap: 15px; }
-        .cat-code { 
-            background: #2563eb; color: white; font-weight: 800; padding: 5px 10px; 
-            border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
-        }
-        .cat-name { font-weight: 700; font-family: 'Syne', sans-serif; color: #111827; }
-        .skill-cat-body { display: none; padding: 0 20px 20px 20px; border-top: 1px solid #f3f4f6; }
-        .sub-skills { list-style: none; margin-top: 15px; }
-        .sub-skills li { margin-bottom: 12px; font-size: 0.9rem; color: #4b5563; line-height: 1.4; }
-        .sub-skills strong { color: #111827; display: block; margin-bottom: 4px; }
+        /* STYLE DES CARTES DE COMPÉTENCES */
+        .competence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .comp-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: transform 0.3s ease; }
+        .comp-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .comp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: var(--accent); font-weight: 700; font-family: 'Syne', sans-serif; text-transform: uppercase; border-bottom: 2px solid var(--accent-light); padding-bottom: 0.5rem; }
+        .comp-project { margin-bottom: 1rem; }
+        .comp-project strong { font-size: 0.95rem; color: var(--text); display: block; margin-bottom: 5px; }
+        .comp-list { display: flex; flex-wrap: wrap; gap: 5px; }
+        .comp-item { font-size: 0.75rem; background: #f3f4f6; color: #4b5563; padding: 2px 8px; border-radius: 4px; border: 1px solid #e5e7eb; }
         
         /* BADGES POUR LES PREUVES */
         .badge-form, .badge-pro { 
@@ -286,74 +277,91 @@
                 </div>
             </div>
 
-            <div class="table-responsive" style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
-    <table class="e5-table" style="width: 100%; border-collapse: collapse; font-size: 0.82rem;">
-        <thead>
-            <tr style="background: #f8fafc; border-bottom: 2px solid #e5e7eb;">
-                <th style="padding: 12px; text-align: left; width: 45%;">Réalisations & Compétences</th>
-                <th style="padding: 12px; text-align: center;">D1</th>
-                <th style="padding: 12px; text-align: center;">D2</th>
-                <th style="padding: 12px; text-align: center;">D3</th>
-                <th style="padding: 12px; text-align: center;">D4</th>
-                <th style="padding: 12px; text-align: center;">D5</th>
-                <th style="padding: 12px; text-align: center;">D6</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr style="background: #eff6ff;"><td colspan="7" style="padding: 8px 12px; font-weight: bold; color: #1e40af;">🎓 FORMATION (SISR)</td></tr>
-            <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 10px;"><strong>Infrastructure Réseau & Services</strong><br><small>IPv6, OSPF, DNS, DHCP, Web, Mail, VPN, RAID</small></td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td></td>
-            </tr>
-            <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 10px;"><strong>Cybersécurité & Virtualisation</strong><br><small>MITM, Pentest, Proxmox, Active Directory, Samba4</small></td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td></td>
-                <td></td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #2563eb; font-weight: bold;">X</td>
-            </tr>
+            <h2 class="pole-title" id="synthese">Synthèse des Compétences</h2>
+            <p style="color: var(--muted);">Retrouvez ici l'ensemble des compétences du référentiel SISR mobilisées durant mon parcours.</p>
 
-            <tr style="background: #f0fdf4;"><td colspan="7" style="padding: 8px 12px; font-weight: bold; color: #166534;">💼 STAGE ANNEE 1</td></tr>
-            <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 10px;"><strong>Support & Maintenance</strong><br><small>Assistance, Ticketing, Parc Info, Masterisation</small></td>
-                <td style="text-align: center; color: #16a34a; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #16a34a; font-weight: bold;">X</td>
-                <td></td>
-                <td></td>
-                <td style="text-align: center; color: #16a34a; font-weight: bold;">X</td>
-                <td></td>
-            </tr>
+            <div class="competence-grid">
+                <div class="comp-card">
+                    <div class="comp-header">📂 Gérer le patrimoine informatique (D1)</div>
+                    <div class="comp-project">
+                        <strong>Réalisations associées :</strong>
+                        <div class="comp-list">
+                            <span class="comp-item">Recenser les ressources (Stage 1)</span>
+                            <span class="comp-item">Exploiter des référentiels (Maintenance IP)</span>
+                            <span class="comp-item">Gérer les habilitations (AD/Samba4)</span>
+                            <span class="comp-item">Sauvegardes & Continuité (RAID/Logs)</span>
+                            <span class="comp-item">Vérifier le respect des règles (Audit AD)</span>
+                        </div>
+                    </div>
+                </div>
 
-            <tr style="background: #fffbeb;"><td colspan="7" style="padding: 8px 12px; font-weight: bold; color: #92400e;">💼 STAGE ANNEE 2</td></tr>
-            <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 10px;"><strong>Projets d'Architecture & Sécurité</strong><br><small>Maquettage, Audit AD, Déploiement Terrain</small></td>
-                <td style="text-align: center; color: #d97706; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #d97706; font-weight: bold;">X</td>
-                <td></td>
-                <td style="text-align: center; color: #d97706; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #d97706; font-weight: bold;">X</td>
-                <td style="text-align: center; color: #d97706; font-weight: bold;">X</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                <div class="comp-card">
+                    <div class="comp-header">🛠 Support & Incidents (D2)</div>
+                    <div class="comp-project">
+                        <strong>Réalisations associées :</strong>
+                        <div class="comp-list">
+                            <span class="comp-item">Collecter & orienter les demandes (GLPI)</span>
+                            <span class="comp-item">Traiter les incidents réseau/système</span>
+                            <span class="comp-item">Support applicatif & métier (Stage 1 & 2)</span>
+                            <span class="comp-item">Accompagnement utilisateurs</span>
+                        </div>
+                    </div>
+                </div>
 
-<div style="margin-top: 15px; text-align: center; font-size: 0.8rem; color: #6b7280;">
-    <em>Note : Les détails précis des sous-compétences sont consultables dans le document officiel PDF ci-dessous.</em>
-</div>
+                <div class="comp-card">
+                    <div class="comp-header">📊 Travailler en mode projet (D4)</div>
+                    <div class="comp-project">
+                        <strong>Réalisations associées :</strong>
+                        <div class="comp-list">
+                            <span class="comp-item">Analyser les objectifs (Maquettage)</span>
+                            <span class="comp-item">Planifier les activités (Terrain)</span>
+                            <span class="comp-item">Tests d'intégration & acceptation</span>
+                        </div>
+                    </div>
+                </div>
 
-<div style="margin-top: 30px; text-align: center;">
-    <a href="Tableau-de-synthese-E5.pdf" target="_blank" class="btn-download" style="display: inline-block; width: auto; padding: 12px 25px;">
-        Télécharger la grille officielle complète (PDF)
-    </a>
-</div>
+                <div class="comp-card">
+                    <div class="comp-header">🚀 Mise à disposition de service (D5)</div>
+                    <div class="comp-project">
+                        <strong>Réalisations associées :</strong>
+                        <div class="comp-list">
+                            <span class="comp-item">Déployer un service (Infra IPv6/VPN)</span>
+                            <span class="comp-item">Masterisation de postes (WDS/MDT)</span>
+                            <span class="comp-item">Hébergement Web & Mail (Apache/Postfix)</span>
+                            <span class="comp-item">Virtualisation (Proxmox)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comp-card">
+                    <div class="comp-header">📈 Développement Professionnel (D6)</div>
+                    <div class="comp-project">
+                        <strong>Réalisations associées :</strong>
+                        <div class="comp-list">
+                            <span class="comp-item">Veille technologique (IA Agentiques)</span>
+                            <span class="comp-item">Gestion du portfolio</span>
+                            <span class="comp-item">Développer son identité pro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comp-card">
+                    <div class="comp-header">🌐 Présence en ligne (D3)</div>
+                    <div class="comp-project">
+                        <strong>Réalisations associées :</strong>
+                        <div class="comp-list">
+                            <span class="comp-item">Participer à l'évolution d'un site</span>
+                            <span class="comp-item">Valorisation de l'image de l'organisation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="Tableau-de-synthese-E5.pdf" target="_blank" class="btn-download" style="display: inline-block; width: auto; padding: 0.8rem 2rem;">
+                    Consulter le tableau de synthèse officiel (PDF)
+                </a>
+            </div>
 
 <footer style="padding: 4rem 10%; background: #fff; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 5rem;">
     Arthur Cossé © 2026 — Portfolio réalisé pour l'Épreuve E5 (SISR)
