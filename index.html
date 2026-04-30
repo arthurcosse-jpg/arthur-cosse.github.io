@@ -9,6 +9,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
     <style>
+        /* STYLE DES PROJETS D'ÉTUDE */
+        .study-projects { margin-bottom: 4rem; }
+        .project-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 2rem; 
+            margin-top: 2rem; 
+        }
+        .study-card {
+            background: white;
+            border-left: 5px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .study-card:hover { transform: scale(1.02); }
+        .study-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .study-card h3 { margin-bottom: 1rem; font-size: 1.25rem; color: #1e293b; }
+        .study-card p { font-size: 0.9rem; color: #64748b; line-height: 1.6; margin-bottom: 1.2rem; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+        .tech-pill {
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #475569;
+            font-weight: 600;
+        }
         /* STYLE DES CARTES DE COMPÉTENCES */
         .competence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
         .comp-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: transform 0.3s ease; }
@@ -147,6 +187,75 @@
             </div>
         </aside>
 
+
+        <section class="study-projects" id="projets">
+            <h2 class="pole-title">Projets de Formation & Ateliers</h2>
+            <p style="color: var(--muted); max-width: 800px;">
+                Sélection de projets techniques réalisés en laboratoire (maquettage) durant mon cursus, illustrant ma capacité à déployer et sécuriser des infrastructures complexes.
+            </p>
+        
+            <div class="project-grid">
+                <div class="study-card">
+                    <div>
+                        <span class="study-tag">Système & Maintenance</span>
+                        <h3>Gestion centralisée des mises à jour (WSUS)</h3>
+                        <p>Installation et configuration d'un serveur WSUS pour optimiser le déploiement des correctifs de sécurité sur un parc Windows via GPO.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Windows Server 2022</span>
+                            <span class="tech-pill">GPO</span>
+                            <span class="tech-pill">WSUS</span>
+                            <span class="tech-pill">Proxmox</span>
+                        </div>
+                    </div>
+                    <a href="Mise-en-place-WSUS.pdf" target="_blank" class="btn-download" style="font-size: 0.8rem; padding: 10px;">Voir la procédure</a>
+                </div>
+        
+                <div class="study-card" style="border-left-color: #ef4444;">
+                    <div>
+                        <span class="study-tag" style="color: #ef4444;">Cybersécurité</span>
+                        <h3>Exploitation de vulnérabilités (EternalBlue)</h3>
+                        <p>Audit offensif simulant l'exploitation de la faille MS17-010 (SMBv1) via Kali Linux et Metasploit pour sensibiliser au durcissement des systèmes.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Kali Linux</span>
+                            <span class="tech-pill">Metasploit</span>
+                            <span class="tech-pill">Nmap</span>
+                            <span class="tech-pill">SMBv1</span>
+                        </div>
+                    </div>
+                    <a href="Exploitation_vulnerabilite_Windows.pdf" target="_blank" class="btn-download" style="background: #ef4444; font-size: 0.8rem; padding: 10px;">Voir le rapport d'audit</a>
+                </div>
+        
+                <div class="study-card" style="border-left-color: #f59e0b;">
+                    <div>
+                        <span class="study-tag" style="color: #f59e0b;">Supervision</span>
+                        <h3>Dashboarding & Visualisation (Grafana)</h3>
+                        <p>Mise en place d'une solution de monitoring avancée connectée à Zabbix pour la visualisation en temps réel de l'état de l'infrastructure.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Grafana</span>
+                            <span class="tech-pill">Zabbix</span>
+                            <span class="tech-pill">MySQL</span>
+                            <span class="tech-pill">Linux Debian</span>
+                        </div>
+                    </div>
+                    <a href="Grafana_2026.pdf" target="_blank" class="btn-download" style="background: #f59e0b; font-size: 0.8rem; padding: 10px;">Voir la procédure</a>
+                </div>
+        
+                <div class="study-card" style="border-left-color: #10b981;">
+                    <div>
+                        <span class="study-tag" style="color: #10b981;">Infrastructure AD</span>
+                        <h3>Sécurisation par GPO (PSO & SRP)</h3>
+                        <p>Application de politiques de mots de passe granulaires (PSO) et de restrictions logicielles (SRP) pour limiter la surface d'attaque du domaine.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Active Directory</span>
+                            <span class="tech-pill">GPO</span>
+                            <span class="tech-pill">Sécurité</span>
+                            <span class="tech-pill">Windows 10</span>
+                        </div>
+                    </div>
+                    <a href="Politique-de-Securite-GPO.pdf" target="_blank" class="btn-download" style="background: #10b981; font-size: 0.8rem; padding: 10px;">Voir la documentation</a>
+                </div>
+            </div>
+        </section>
         <main id="procédures">
 
             <h2 class="pole-title">1ère année</h2>
