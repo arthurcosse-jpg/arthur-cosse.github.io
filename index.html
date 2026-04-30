@@ -217,9 +217,47 @@
             </div>
 
             <h2 class="pole-title" id="veille">Veille Technologique</h2>
-            <div class="placeholder-section">
-                <p style="font-weight:700; margin-bottom:1rem;">Section en attente</p>
-                <p>Emplacement réservé pour tes articles et synthèses de veille technologique.</p>
+            
+            <p style="color: var(--muted); margin-bottom: 1.5rem;">
+                <strong>Thème d'étude :</strong> L'évolution de l'automatisation IT avec les IA Agentiques et les Turing Bots.
+            </p>
+
+            <div class="project-card active">
+                <div class="project-header" onclick="toggleProject(this)">
+                    <h3>Les IA Agentiques (Agentic AI)</h3>
+                    <span>▲</span>
+                </div>
+                <div class="project-body">
+                    <p style="font-size: 0.95rem; margin-bottom: 10px;">
+                        <strong>Qu'est-ce que c'est ?</strong> Contrairement aux IA conversationnelles classiques qui se contentent de répondre à un "prompt", les IA agentiques sont dotées d'autonomie. On leur donne un objectif global et elles sont capables de planifier les étapes, d'utiliser des outils externes (API, scripts) et d'exécuter des actions de manière autonome pour accomplir la tâche.
+                    </p>
+                    <div style="background: var(--bg); padding: 15px; border-left: 4px solid var(--accent); border-radius: 4px; margin-top: 15px;">
+                        <p style="font-weight: 700; font-size: 0.85rem; color: var(--accent); margin-bottom: 5px;">Impact en SISR & Cybersécurité :</p>
+                        <ul style="list-style-type: none; font-size: 0.85rem; color: var(--muted);">
+                            <li>• <strong>Auto-remédiation :</strong> Capacité à détecter une panne réseau et appliquer la correction sans intervention humaine.</li>
+                            <li>• <strong>SOC Autonome :</strong> Analyse des logs en temps réel (SIEM) et isolement automatique d'une machine compromise (Threat Hunting).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card active">
+                <div class="project-header" onclick="toggleProject(this)">
+                    <h3>Les Turing Bots</h3>
+                    <span>▲</span>
+                </div>
+                <div class="project-body">
+                    <p style="font-size: 0.95rem; margin-bottom: 10px;">
+                        <strong>Qu'est-ce que c'est ?</strong> Concept mis en avant par le cabinet de recherche Forrester, les Turing Bots sont des assistants logiciels dopés à l'IA qui accompagnent les professionnels de l'IT sur tout le cycle de vie d'un projet : conception, écriture de code, tests de sécurité et déploiement.
+                    </p>
+                    <div style="background: var(--bg); padding: 15px; border-left: 4px solid var(--accent); border-radius: 4px; margin-top: 15px;">
+                        <p style="font-weight: 700; font-size: 0.85rem; color: var(--accent); margin-bottom: 5px;">Impact en SISR & Cybersécurité :</p>
+                        <ul style="list-style-type: none; font-size: 0.85rem; color: var(--muted);">
+                            <li>• <strong>Infrastructure as Code (IaC) :</strong> Génération instantanée de scripts de déploiement (Ansible, Terraform) sécurisés par défaut.</li>
+                            <li>• <strong>Audit automatisé :</strong> Détection et correction des vulnérabilités ou mauvaises configurations réseau avant même la mise en production.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <h2 class="pole-title" id="synthese">Tableau de Synthèse E5</h2>
