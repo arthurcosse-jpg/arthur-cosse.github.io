@@ -73,6 +73,17 @@
             .hero { padding: 0 5%; }
             .container { padding: 2rem 5%; }
         }
+        /* TABLEAU DE SYNTHÈSE */
+        .table-responsive { overflow-x: auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow); }
+        .e5-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+        .e5-table th, .e5-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--border); }
+        .e5-table th { background: #f3f4f6; font-weight: 700; color: var(--text); font-family: 'Syne', sans-serif; white-space: nowrap; }
+        .e5-table th:not(:first-child), .e5-table td:not(:first-child) { text-align: center; }
+        .e5-table .section-row td { background: var(--accent-light); font-weight: 700; color: var(--accent); font-size: 0.9rem; text-transform: uppercase; }
+        .e5-table tr:hover:not(.section-row) { background: #f9fafb; }
+        .e5-table tr:last-child td { border-bottom: none; }
+        .check-x { color: var(--accent); font-weight: 800; font-size: 1.1rem; }
+        .domaine-tooltip { cursor: help; border-bottom: 1px dotted var(--muted); }
     </style>
 </head>
 <body>
@@ -211,14 +222,76 @@
                 <p>Emplacement réservé pour tes articles et synthèses de veille technologique.</p>
             </div>
 
-            <h2 class="pole-title" id="synthese">Tableau de Synthèse</h2>
-            <div class="placeholder-section">
-                <p style="font-weight:700; margin-bottom:1rem;">Tableau de compétences E5</p>
-                <p>Emplacement réservé pour la grille d'évaluation du BTS SIO.</p>
+            <h2 class="pole-title" id="synthese">Tableau de Synthèse E5</h2>
+            
+            <p style="color: var(--muted); margin-bottom: 1.5rem;">Aperçu des compétences mobilisées (D1 à D6) pour chaque réalisation. Le document officiel complet est disponible en téléchargement.</p>
+
+            <div class="table-responsive">
+                <table class="e5-table">
+                    <thead>
+                        <tr>
+                            <th>Réalisations Professionnelles</th>
+                            <th title="Gérer le patrimoine informatique" class="domaine-tooltip">D1</th>
+                            <th title="Répondre aux incidents et demandes d'assistance" class="domaine-tooltip">D2</th>
+                            <th title="Développer la présence en ligne" class="domaine-tooltip">D3</th>
+                            <th title="Travailler en mode projet" class="domaine-tooltip">D4</th>
+                            <th title="Mettre à disposition un service" class="domaine-tooltip">D5</th>
+                            <th title="Organiser son développement professionnel" class="domaine-tooltip">D6</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="section-row"><td colspan="7">En cours de formation [cite: 244]</td></tr>
+                        <tr><td>Infra réseau IPv6 complète (OSPFv3, RIPng, DHCPv6) [cite: 251]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Déploiement de serveurs d'annuaire (AD et Samba 4) [cite: 251]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Sécurisation des communications (VPN IPsec, SSH) [cite: 252, 253]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Simulation d'attaques (MITM, ARP Poisoning) [cite: 253]</td>
+                            <td></td><td><span class="check-x">X</span></td><td></td><td></td><td></td><td><span class="check-x">X</span></td></tr>
+                        <tr><td>Hébergement Web et services Internet (Apache2, BIND9) [cite: 253]</td>
+                            <td></td><td></td><td><span class="check-x">X</span></td><td></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Centralisation logs et gestion RAID [cite: 254, 255]</td>
+                            <td><span class="check-x">X</span></td><td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td>Virtualisation (Proxmox, VirtualBox) [cite: 256]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Veille technologique et portfolio professionnel [cite: 256]</td>
+                            <td></td><td></td><td><span class="check-x">X</span></td><td></td><td></td><td><span class="check-x">X</span></td></tr>
+
+                        <tr class="section-row"><td colspan="7">Milieu professionnel - 1ère année [cite: 303]</td></tr>
+                        <tr><td>Gestion des demandes d'assistance [cite: 301]</td>
+                            <td></td><td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td>Gestion des sessions et messagerie [cite: 302, 310]</td>
+                            <td></td><td><span class="check-x">X</span></td><td></td><td></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Déploiement et masterisation de postes [cite: 312]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Inventaire du patrimoine numérique [cite: 313, 314]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td>Support aux utilisateurs (bureautique/métier) [cite: 315, 316]</td>
+                            <td></td><td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td>Maintenance périphériques (Imprimantes/IP) [cite: 316]</td>
+                            <td><span class="check-x">X</span></td><td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td></tr>
+
+                        <tr class="section-row"><td colspan="7">Milieu professionnel - 2ème année [cite: 341]</td></tr>
+                        <tr><td>Création d'un environnement de labo (Maquettage) [cite: 332, 333]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td><span class="check-x">X</span></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Audit et préconisations de sécurité Active Directory [cite: 334, 335]</td>
+                            <td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td><td><span class="check-x">X</span></td></tr>
+                        <tr><td>Interventions terrain et déploiement infrastructure [cite: 336]</td>
+                            <td><span class="check-x">X</span></td><td><span class="check-x">X</span></td><td></td><td><span class="check-x">X</span></td><td><span class="check-x">X</span></td><td></td></tr>
+                        <tr><td>Modification et optimisation des profils [cite: 337]</td>
+                            <td><span class="check-x">X</span></td><td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><td>Support technique et résolution d'incidents [cite: 339, 340]</td>
+                            <td></td><td><span class="check-x">X</span></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
             </div>
 
-        </main>
-    </div>
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="Tableau-de-synthese-E5.pdf" target="_blank" class="btn-download" style="display: inline-block; width: auto; padding: 0.8rem 2rem;">
+                    Télécharger la grille officielle complète (PDF)
+                </a>
+            </div>
 </div>
 
 <footer style="padding: 4rem 10%; background: #fff; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 5rem;">
