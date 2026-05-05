@@ -532,6 +532,64 @@
             transform: translateY(20px);
         }
 
+        /* Style des Certifications */
+        .certif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .certif-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .certif-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+        
+        .certif-logo {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+        
+        .certif-card h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .certif-card p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+        
+        .btn-certif {
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            width: 100%;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1000px) {
             .portfolio-layout { grid-template-columns: 1fr; }
@@ -545,6 +603,14 @@
             .hero h1 { letter-spacing: -1px; }
             .nav-links a { margin-left: 1rem; font-size: 0.78rem; }
         }
+        
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+            align-items: center; justify-content: center;
+        }
+        .modal-content { max-width: 600px; padding: 20px; }
+        
     </style>
 </head>
 <body>
@@ -766,6 +832,43 @@
                 </div>
             </div>
 
+
+
+
+            <h2 class="pole-title">Certifications & Certificats</h2>
+            <div class="certif-card">
+                <img src="docs/logo-cisco.png" alt="Cisco" class="certif-logo">
+                <h4>Introduction to Cybersecurity</h4>
+                <button onclick="openModal('docs/introduction-to-cybersecurity-cisco.png')" class="btn-certif">
+                    Afficher le badge
+                </button>
+            </div>
+
+            <div id="certifModal" class="modal" onclick="this.style.display='none'">
+                <div class="modal-content">
+                    <img id="imgFull" src="" style="width:100%; border-radius:10px;">
+                </div>
+            </div>
+            
+                <div class="certif-card">
+                    <img src="docs/logo-anssi.png" alt="Logo ANSSI" class="certif-logo">
+                    <div>
+                        <h4>SecNumAcadémie</h4>
+                        <p>ANSSI - Cyber Sécurité</p>
+                    </div>
+                    <a href="docs/CosseArthur-attestation-secnumacademie.pdf" target="_blank" class="btn-certif">Voir l'attestation</a>
+                </div>
+            
+                <div class="certif-card">
+                    <img src="docs/logo-cyber101.png" alt="Logo Cyber101" class="certif-logo">
+                    <div>
+                        <h4>Cybersécurité 101</h4>
+                        <p>Formation fondamentale</p>
+                    </div>
+                    <a href="docs/Certificat-cyber101.pdf" target="_blank" class="btn-certif">Voir le certificat</a>
+                </div>
+            </div>
+            
             <!-- VEILLE TECHNOLOGIQUE -->
             <h2 class="pole-title" id="veille">Veille Technologique</h2>
             <p class="pole-subtitle">
@@ -784,6 +887,7 @@
                     </div>
                 </div>
             </div>
+            
 
             <div class="veille-card project-card active">
                 <div class="veille-header project-header" onclick="toggleProject(this)">
@@ -801,9 +905,9 @@
             <div class="sources-box">
                 <h4>📚 Sources et Références :</h4>
                 <ul>
-                    <li>🔗 <strong>Gartner :</strong> <a href="https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2025" target="_blank">Top 10 Strategic Technology Trends for 2025 (Agentic AI)</a></li>
-                    <li>🔗 <strong>Forrester :</strong> <a href="https://www.forrester.com/blogs/category/turingbots/" target="_blank">The Future of Software Development with TuringBots</a></li>
-                    <li>🔗 <strong>Cisco News :</strong> <a href="https://news-blogs.cisco.com/" target="_blank">AI in Networking and Cybersecurity Operations (SecOps)</a></li>
+                    <li>🔗 <strong>Gartner :</strong>Top 10 Strategic Technology Trends for 2025 (Agentic AI)</a></li>
+                    <li>🔗 <strong>Forrester :</strong>The Future of Software Development with TuringBots</a></li>
+                    <li>🔗 <strong>Cisco News :</strong> AI in Networking and Cybersecurity Operations (SecOps)</a></li>
                     <li>🔗 <strong>Outils de veille :</strong> Google Alerts, Feedly (flux RSS de sites spécialisés comme ZDNet et Le Monde Informatique).</li>
                 </ul>
             </div>
@@ -922,6 +1026,14 @@
         });
     });
 </script>
+
+<script>
+function openModal(imgSrc) {
+    document.getElementById('imgFull').src = imgSrc;
+    document.getElementById('certifModal').style.display = 'flex';
+}
+</script>
+
 
 </body>
 </html>
