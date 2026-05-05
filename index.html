@@ -159,18 +159,23 @@
 
         /* ===== LAYOUT ===== */
         .container {
-            padding: 2rem 10% 4rem 10%;
+            padding: 2rem 4% 4rem 4%;
             max-width: 1400px;
             margin: 0 auto;
         }
         .portfolio-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
-            gap: 4rem;
+            gap: 3rem;
+            align-items: start;
         }
 
         /* ===== SIDEBAR ===== */
-        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
         .profile-card {
             background: var(--bg-white);
             border: 1px solid var(--border);
@@ -980,6 +985,7 @@
             </div>
 
         </main>
+
     </div>
 </div>
 
