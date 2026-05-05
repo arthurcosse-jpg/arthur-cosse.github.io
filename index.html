@@ -73,7 +73,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 10%;
+            padding: 0 5% 0 calc(300px + 5%);
             margin-top: 72px;
             position: relative;
             overflow: hidden;
@@ -159,18 +159,29 @@
 
         /* ===== LAYOUT ===== */
         .container {
-            padding: 2rem 10% 4rem 10%;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 0;
+            max-width: 100%;
+            margin: 0;
         }
         .portfolio-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 4rem;
+            display: block;
+            margin-left: 300px;
+            padding: 2rem 5% 4rem 4%;
         }
 
         /* ===== SIDEBAR ===== */
-        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .sidebar {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 300px;
+            height: calc(100vh - 72px);
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
         .profile-card {
             background: var(--bg-white);
             border: 1px solid var(--border);
@@ -592,10 +603,19 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1000px) {
-            .portfolio-layout { grid-template-columns: 1fr; }
-            .sidebar { position: static; margin-bottom: 2rem; }
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 1.5rem;
+            }
+            .portfolio-layout {
+                margin-left: 0;
+                padding: 1rem 5%;
+            }
             .hero { padding: 0 5%; }
-            .container { padding: 2rem 5%; }
             nav { padding: 1rem 5%; }
         }
         @media (max-width: 600px) {
@@ -639,33 +659,6 @@
 <!-- CONTENU PRINCIPAL -->
 <div class="container">
     <div class="portfolio-layout">
-
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="profile-card">
-                <div class="avatar">AC</div>
-                <h2 style="font-family:'Syne'; margin-bottom:0.3rem; font-size:1.3rem;">Arthur Cossé</h2>
-                <p style="font-size:0.82rem; color:var(--muted); margin-bottom:1.5rem; font-weight:600;">Spécialité SISR · BTS SIO 2026</p>
-
-                <div class="contact-info">📍 Villers-Bocage, Normandie</div>
-                <div class="contact-info">📞 <a href="tel:+33769588228">07 69 58 82 28</a></div>
-                <div class="contact-info">✉️ <a href="mailto:arthur.cosse@sts-sio-caen.info">arthur.cosse@sts-sio-caen.info</a></div>
-
-                <a href="docs/cv-arthur-cosse.pdf" target="_blank" class="btn-download">📄 Télécharger mon CV</a>
-
-                <div class="skills-section">
-                    <p class="skills-label">Compétences Clés</p>
-                    <span class="skill-tag">🖥 Windows Server 2022</span>
-                    <span class="skill-tag">📂 Active Directory</span>
-                    <span class="skill-tag">📊 Grafana / Zabbix</span>
-                    <span class="skill-tag">🌐 Cisco VLAN / Routage</span>
-                    <span class="skill-tag">🔐 Cybersécurité</span>
-                    <span class="skill-tag">🐧 Linux Debian</span>
-                    <span class="skill-tag">☁️ Proxmox</span>
-                    <span class="skill-tag">🔑 GPO / PSO</span>
-                </div>
-            </div>
-        </aside>
 
         <!-- MAIN -->
         <main id="procedures">
@@ -980,6 +973,34 @@
             </div>
 
         </main>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="avatar">AC</div>
+                <h2 style="font-family:'Syne'; margin-bottom:0.3rem; font-size:1.3rem;">Arthur Cossé</h2>
+                <p style="font-size:0.82rem; color:var(--muted); margin-bottom:1.5rem; font-weight:600;">Spécialité SISR · BTS SIO 2026</p>
+
+                <div class="contact-info">📍 Villers-Bocage, Normandie</div>
+                <div class="contact-info">📞 <a href="tel:+33769588228">07 69 58 82 28</a></div>
+                <div class="contact-info">✉️ <a href="mailto:arthur.cosse@sts-sio-caen.info">arthur.cosse@sts-sio-caen.info</a></div>
+
+                <a href="docs/cv-arthur-cosse.pdf" target="_blank" class="btn-download">📄 Télécharger mon CV</a>
+
+                <div class="skills-section">
+                    <p class="skills-label">Compétences Clés</p>
+                    <span class="skill-tag">🖥 Windows Server 2022</span>
+                    <span class="skill-tag">📂 Active Directory</span>
+                    <span class="skill-tag">📊 Grafana / Zabbix</span>
+                    <span class="skill-tag">🌐 Cisco VLAN / Routage</span>
+                    <span class="skill-tag">🔐 Cybersécurité</span>
+                    <span class="skill-tag">🐧 Linux Debian</span>
+                    <span class="skill-tag">☁️ Proxmox</span>
+                    <span class="skill-tag">🔑 GPO / PSO</span>
+                </div>
+            </div>
+        </aside>
+
     </div>
 </div>
 
